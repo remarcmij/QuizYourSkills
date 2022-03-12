@@ -1,4 +1,3 @@
-//@ts-check
 import { clearElement } from './domHelpers.js';
 
 /** @typedef {{root: HTMLElement}} ViewObject*/

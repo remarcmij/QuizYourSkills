@@ -4,7 +4,6 @@ import createMainView from '../views/mainView.js';
 import createQuestionPage from './questionPage.js';
 import { quizData } from '../data.js';
 
-//@ts-check
 const createHomePage = () => {
   const { root } = createMainView();
 
@@ -15,11 +14,15 @@ const createHomePage = () => {
     const shuffledQuestions = [...quizData.questions].sort(
       () => Math.random() - 0.5
     );
-    loadPage(createQuestionPage, {
+
+    const data = {
       questions: shuffledQuestions,
       questionIndex: 0,
       correctCount: 0,
-    });
+      elapsed: 0,
+    };
+
+    loadPage(createQuestionPage, data);
   });
 
   return { root };

@@ -1,4 +1,3 @@
-//@ts-check
 import { createElement } from './lib/domHelpers.js';
 import loadPage from './lib/pageLoader.js';
 import createHomePage from './pages/homePage.js';

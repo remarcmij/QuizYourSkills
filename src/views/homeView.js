@@ -1,9 +1,7 @@
-//@ts-check
 import { createElement } from '../lib/domHelpers.js';
 import createButtonsViewWrapper from './buttonsWrapperView.js';
 import createStartButtonView from './startButtonView.js';
 
-//@ts-check
 const createHomeView = () => {
   const root = createElement('div', { class: 'title-wrapper' });
 

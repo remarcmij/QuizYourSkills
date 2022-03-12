@@ -1,4 +1,3 @@
-//@ts-check
 /**
  * This file is provided ready-made for use in your application by HackYourFuture.
  * There should be no reason to make any changes to this file.

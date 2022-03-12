@@ -1,4 +1,3 @@
-//@ts-check
 import { createElement } from '../lib/domHelpers.js';
 
 const createStartButtonView = () => {

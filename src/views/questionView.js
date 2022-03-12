@@ -1,11 +1,11 @@
 import { createElement } from '../lib/domHelpers.js';
 import createQuestionButtonView from './questionButtonView.js';
 
-function createQuestionView(questionData) {
+function createQuestionView(currentQuestion) {
   const root = createElement('div', { class: 'quiz-bottom-wrapper' });
 
   root.appendChild(
-    createElement('p', { class: 'question', text: questionData.text })
+    createElement('p', { class: 'question', text: currentQuestion.text })
   );
 
   const answersList = createElement('ul', { class: 'answers-container' });
@@ -21,13 +21,25 @@ function createQuestionView(questionData) {
   const linksWrapper = createElement('div', { class: 'links-wrapper' });
   root.appendChild(linksWrapper);
 
-  const choices = Object.entries(questionData.answers).map(([key, value]) => {
-    return createElement('li', {
-      class: 'answer typewriter-answer shadow-hover',
-      'data-key': key,
-      text: value,
+  currentQuestion.links.forEach((link) => {
+    const aElement = createElement('a', {
+      class: 'link',
+      text: link.text,
+      href: link.href,
+      target: '_blanks==',
     });
+    linksWrapper.append(aElement);
   });
+
+  const choices = Object.entries(currentQuestion.answers).map(
+    ([key, value]) => {
+      return createElement('li', {
+        class: 'answer typewriter-answer shadow-hover',
+        'data-key': key,
+        text: value,
+      });
+    }
+  );
 
   choices.forEach((choice) => {
     answersList.appendChild(choice);

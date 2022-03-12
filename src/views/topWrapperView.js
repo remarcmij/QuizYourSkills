@@ -2,13 +2,9 @@ import { createElement } from '../lib/domHelpers.js';
 import createTimerView from './timerView.js';
 
 // Needs to be global for the timer to continue during the quiz
-let timerView;
+const timerView = createTimerView();
 
-const createQuizTopWrapperView = ({
-  questions,
-  questionIndex,
-  correctCount,
-}) => {
+const createTopWrapperView = ({ questions, questionIndex, correctCount }) => {
   const root = createElement('div', { class: 'quiz-top-wrapper' });
 
   const counter = createElement('p', {
@@ -17,14 +13,11 @@ const createQuizTopWrapperView = ({
   });
   root.appendChild(counter);
 
-  const corrects = createElement('p', {
-    class: 'corrects',
-    text: `${correctCount} Correct of ${questions.length}`,
-  });
+  const corrects = createElement('p', { class: 'corrects' });
   root.appendChild(corrects);
 
-  if (!timerView) {
-    timerView = createTimerView();
+  if (questionIndex > 0) {
+    corrects.textContent = `${correctCount} Correct of ${questions.length}`;
   }
 
   root.appendChild(timerView.root);
@@ -37,4 +30,4 @@ const createQuizTopWrapperView = ({
   };
 };
 
-export default createQuizTopWrapperView;
+export default createTopWrapperView;

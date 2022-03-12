@@ -1,5 +1,5 @@
 import createMainView from '../views/mainView.js';
-import createQuizTopWrapperView from '../views/quizTopWrapperView.js';
+import createTopWrapperView from '../views/topWrapperView.js';
 import loadPage from '../lib/pageLoader.js';
 import createQuestionView from '../views/questionView.js';
 import createSummaryPage from './summaryPage.js';
@@ -9,7 +9,7 @@ const createQuestionPage = (data) => {
   const currentQuestion = data.questions[data.questionIndex];
   const { root: mainContainer } = createMainView();
 
-  const topWrapperView = createQuizTopWrapperView(data);
+  const topWrapperView = createTopWrapperView(data);
 
   mainContainer.appendChild(topWrapperView.root);
 

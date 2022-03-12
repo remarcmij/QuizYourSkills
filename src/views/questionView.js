@@ -1,12 +1,14 @@
-import { createElement } from '../lib/domHelpers.js';
+import { clearElement, createElement } from '../lib/domHelpers.js';
 import createQuestionButtonView from './questionButtonView.js';
 
-function createQuestionView(currentQuestion) {
+function createQuestionView() {
   const root = createElement('div', { class: 'quiz-bottom-wrapper' });
 
-  root.appendChild(
-    createElement('p', { class: 'question', text: currentQuestion.text })
-  );
+  const questionText = createElement('p', {
+    class: 'question',
+  });
+
+  root.appendChild(questionText);
 
   const answersList = createElement('ul', { class: 'answers-container' });
   root.appendChild(answersList);
@@ -21,32 +23,67 @@ function createQuestionView(currentQuestion) {
   const linksWrapper = createElement('div', { class: 'links-wrapper' });
   root.appendChild(linksWrapper);
 
-  currentQuestion.links.forEach((link) => {
-    const aElement = createElement('a', {
-      class: 'link',
-      text: link.text,
-      href: link.href,
-      target: '_blanks==',
-    });
-    linksWrapper.append(aElement);
-  });
-
-  const choices = Object.entries(currentQuestion.answers).map(
-    ([key, value]) => {
-      return createElement('li', {
-        class: 'answer typewriter-answer shadow-hover',
-        'data-key': key,
-        text: value,
-      });
-    }
-  );
-
-  choices.forEach((choice) => {
-    answersList.appendChild(choice);
-  });
-
   const questionButtonView = createQuestionButtonView();
   root.appendChild(questionButtonView.root);
+
+  let answerListItems;
+
+  const update = (action, data) => {
+    const currentQuestion = data.questions[data.questionIndex];
+    const { selected } = currentQuestion;
+
+    if (action === 'new') {
+      questionText.textContent = currentQuestion.text;
+      clearElement(answersList);
+      answerListItems = Object.entries(currentQuestion.answers).map(
+        ([key, value]) => {
+          return createElement('li', {
+            class: 'answer typewriter-answer shadow-hover',
+            'data-key': key,
+            text: value,
+          });
+        }
+      );
+      answerListItems.forEach((answerListItem) => {
+        answersList.appendChild(answerListItem);
+      });
+    }
+
+    clearElement(linksWrapper);
+    currentQuestion.links.forEach((link) => {
+      const aElement = createElement('a', {
+        class: 'link',
+        text: link.text,
+        href: link.href,
+        target: '_blanks==',
+      });
+      linksWrapper.append(aElement);
+    });
+
+    if (action === 'update') {
+      answerListItems.forEach((answerListItem) => {
+        answerListItem.style.pointerEvents = 'none';
+      });
+
+      const selectedAnswer = answerListItems.find(
+        (answerListItem) => answerListItem.getAttribute('data-key') === selected
+      );
+
+      if (selected === currentQuestion.correct) {
+        selectedAnswer.classList.add('correct-answer');
+      } else {
+        selectedAnswer.classList.add('wrong-answer');
+        const correctAnswer = answerListItems.find(
+          (answerListItem) =>
+            answerListItem.getAttribute('data-key') === currentQuestion.correct
+        );
+        correctAnswer.classList.add('correct-answer');
+      }
+
+      questionButtonView.nextButton.classList.remove('hidden');
+      questionButtonView.giveUpButton.classList.add('hidden');
+    }
+  };
 
   return {
     root,
@@ -54,9 +91,8 @@ function createQuestionView(currentQuestion) {
     linksWrapper,
     hintsText,
     nextButton: questionButtonView.nextButton,
-    backButton: questionButtonView.backButton,
     giveUpButton: questionButtonView.giveUpButton,
-    choices,
+    update,
   };
 }
 

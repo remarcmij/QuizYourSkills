@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="./public/style.css" rel="stylesheet" />
+    <title>QuizYourSkills</title>
+  </head>
+
+  <body>
+    <!-- the main where everything will be rendered -->
+    <div class="hero centered" id="user-interface">
+      <!-- the top part of the quiz -->
+      <div class="quiz-top-wrapper hidden" id="quiz-top-wrapper">
+        <p class="counter" id="counter"></p>
+        <p class="corrects" id="corrects"></p>
+        <p class="timer" id="timer">
+          <span class="time"></span>
+        </p>
+      </div>
+
+      <!-- title and hand unicode char -->
+      <div class="title-wrapper" id="title-wrapper">
+        <h1 class="typewriter-title">QuizYourSkills</h1>
+        <h2 class="unicode">&#9759;</h2>
+      </div>
+
+      <!-- wrapper for question, answers and learning sources -->
+      <div class="quiz-bottom-wrapper hidden" id="quiz-bottom-wrapper">
+        <!-- the question -->
+        <p class="question" id="question"></p>
+
+        <!-- wrapper for all answers -->
+        <div class="answers-container" id="answers-container"></div>
+
+        <!-- wrapper for learning sources -->
+        <!-- title for wrapper -->
+        <p class="hints-text hidden" id="hints-text">Need help?</p>
+        <div class="links-wrapper" id="links-wrapper"></div>
+      </div>
+      <div class="game-end-wrapper">
+        <h3 class="end-msg typewriter-title hidden" id="end-msg">
+          Thank you for taking JavaScript Quiz!
+        </h3>
+        <div class="summary" id="summary"></div>
+      </div>
+
+      <!-- buttons wrapper -->
+      <div class="btns-wrapper">
+        <button
+          type="submit"
+          class="btn btn-back scale-hover hidden"
+          id="btn-back"
+        >
+          &lt;back&gt;
+        </button>
+
+        <button type="submit" class="btn btn-start scale-hover" id="btn-start">
+          &lt;Start&gt;
+        </button>
+
+        <button
+          type="submit"
+          class="btn btn-next scale-hover hidden"
+          id="btn-next"
+        >
+          &lt;Next&gt;
+        </button>
+        <button id="btn-giveup" class="btn btn-giveup scale-hover hidden">
+          &lt;Give Up&gt;
+        </button>
+
+        <a id="home-page" href="./index.html">
+          <button
+            type="submit"
+            class="btn btn-restart scale-hover hidden"
+            id="btn-restart"
+          >
+            &lt;Restart Quiz&gt;
+          </button></a
+        >
+      </div>
+    </div>
+
+    <!-- your data -->
+    <script src="./src/main.js" type="module"></script>
+    <!-- Add other files here -->
+  </body>
+</html>

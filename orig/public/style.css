@@ -1,0 +1,264 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  outline: none;
+  user-select: none;
+  box-sizing: border-box;
+  font-family: 'Press Start 2P', cursive;
+}
+
+:root {
+  --accent: rgba(0, 255, 0, 0.7);
+  --wrong: rgba(170, 0, 0, 0.9);
+  --text-light: #bbb;
+  --text-dark: #222;
+  --dark-alpha: rgba(204, 204, 204, 0.5);
+  --shadow-10: 0px 0px 10px 0px;
+  --shadow-200: 0px 0px 200px 0px;
+  --shadow-hover: 0px 0px 5px 5px;
+}
+
+.centered {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.shadow-hover:hover {
+  box-shadow: var(--shadow-hover) var(--accent);
+  transition: all ease-in-out 0.25s;
+}
+
+.scale-hover:hover {
+  cursor: pointer;
+  opacity: 1;
+  transform: scale(1.05);
+  transition: all ease-in-out 0.25s;
+}
+
+body {
+  background: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)),
+    url('../assets/bg.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 100vh;
+}
+
+.hero {
+  width: 75%;
+  min-height: 75%;
+  max-height: 95vh;
+  padding: 2rem;
+  padding-top: 1rem;
+  border-radius: 2%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.7);
+  box-shadow: var(--shadow-10) var(--accent);
+  transition: all ease-in-out 0.25s;
+  justify-content: space-between;
+  overflow: scroll;
+}
+
+/* ########## homepage ######### */
+
+.typewriter-title {
+  font-size: 1.5rem;
+  color: var(--accent);
+  overflow: hidden;
+  border-right: 0.1rem solid var(--accent);
+  white-space: nowrap;
+  margin: 0.5rem auto;
+  padding: 0.5rem 0;
+  letter-spacing: 0.1rem;
+  animation: typing 3s steps(14, end), blink-caret 1s step-end infinite;
+}
+
+.unicode {
+  margin-top: 15rem;
+  font-size: 4rem;
+  color: var(--accent);
+}
+
+.btn {
+  cursor: pointer;
+  border-radius: 0.5rem;
+  padding: 0.8rem;
+  background-color: var(--accent);
+  font-size: 0.7rem;
+  border: 0;
+  letter-spacing: 0.15rem;
+  text-align: center;
+  margin: 5rem 1rem 0 1rem;
+  opacity: 0.9;
+  transition: all ease-in-out 0.25s;
+}
+
+/* ########## question container ######### */
+
+.quiz-top-wrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+}
+
+.counter,
+.timer,
+.timer span {
+  color: var(--dark-alpha);
+  font-size: 0.6rem;
+}
+
+.corrects {
+  color: rgba(0, 255, 0, 0.4);
+  font-size: 0.6rem;
+}
+
+.question {
+  font-size: 0.8rem;
+  color: var(--accent);
+  margin: 2.75rem auto;
+  line-height: 1.5rem;
+  letter-spacing: 0.1rem;
+}
+
+.answers-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.answer {
+  width: 100%;
+  box-shadow: var(--shadow-10) var(--accent);
+  padding: 0.5rem;
+  margin-bottom: 2rem;
+  font-size: 0.7rem;
+  list-style: none;
+  line-height: 1rem;
+  color: var(--text-light);
+  letter-spacing: 0.05rem;
+  transition: all ease-in-out 0.25s;
+}
+
+.typewriter-answer {
+  overflow: hidden;
+  white-space: nowrap;
+  animation: typing 1.5s steps(30, end);
+}
+
+.correct-answer {
+  background-color: var(--accent);
+  color: var(--text-dark);
+  transform: scale(1.05);
+  box-shadow: var(--shadow-hover) var(--accent);
+}
+
+.correct-container {
+  box-shadow: var(--shadow-200) var(--accent);
+}
+
+.wrong-answer {
+  box-shadow: var(--shadow-10) var(--wrong);
+}
+
+.wrong-container {
+  box-shadow: var(--shadow-200) var(--wrong);
+}
+
+.links-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.hints-text {
+  color: var(--dark-alpha);
+  font-size: 0.5rem;
+  padding: 0 0.75rem;
+  line-height: 1rem;
+}
+
+.link {
+  cursor: pointer;
+  text-decoration: none;
+  color: rgba(0, 119, 255, 0.8);
+  font-size: 0.5rem;
+  padding: 0 0.75rem;
+  line-height: 1rem;
+}
+
+.end-timer {
+  color: var(--dark-alpha);
+}
+
+.end-msg {
+  font-size: 0.7rem;
+  border: 0;
+}
+
+.end-question {
+  border-bottom: 2px dashed var(--dark-alpha);
+  padding-bottom: 1rem;
+}
+
+.summary {
+  line-height: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.summary-question {
+  color: var(--text-light);
+  width: 45%;
+  margin: 0.5rem;
+  font-size: 0.6rem;
+  border-bottom: 2px dashed var(--dark-alpha);
+  padding-bottom: 1rem;
+}
+
+.hidden {
+  display: none;
+}
+
+/* The typing effect */
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+/* Cursor effect */
+@keyframes blink-caret {
+  from,
+  to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: var(--green);
+  }
+}
+
+@media screen and (max-width: 699px) {
+  .typewriter-answer {
+    white-space: unset;
+    animation: 0;
+  }
+
+  .summary-question {
+    width: 90%;
+  }
+}

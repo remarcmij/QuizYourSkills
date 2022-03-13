@@ -4,11 +4,10 @@ import createMainView from '../views/mainView.js';
 import createQuizPage from './quizPage.js';
 import { quizData } from '../data.js';
 
-const createHomePage = () => {
+function createHomePage() {
   const { root } = createMainView();
 
-  const homeView = createHomeView();
-  root.appendChild(homeView.root);
+  const homeView = createHomeView(root);
 
   homeView.startBtn.addEventListener('click', () => {
     const shuffledQuestions = [...quizData.questions].sort(
@@ -26,6 +25,6 @@ const createHomePage = () => {
   });
 
   return { root };
-};
+}
 
 export default createHomePage;

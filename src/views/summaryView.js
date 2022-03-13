@@ -1,7 +1,11 @@
 import { createElement } from '../lib/domHelpers.js';
+import createButtonsViewWrapper from './buttonsWrapperView.js';
 
-const createSummaryView = (questions) => {
-  const root = createElement('div', { class: 'game-end-root' });
+function createSummaryView(parent, questions) {
+  const root = createElement('div', {
+    class: 'game-end-root',
+    appendTo: parent,
+  });
 
   const title = createElement('h3', {
     class: 'end-msg typewriter-title',
@@ -11,6 +15,14 @@ const createSummaryView = (questions) => {
 
   const container = createElement('div', { class: 'summary' });
   root.appendChild(container);
+
+  const buttonsWrapper = createButtonsViewWrapper(root);
+  const restartButton = createElement('button', {
+    type: 'button',
+    class: 'btn btn-restart scale-hover',
+    text: '<Restart Quiz>',
+    appendTo: buttonsWrapper.root,
+  });
 
   questions.forEach((question) => {
     const correctAnswer = question.answers[question.correct];
@@ -26,7 +38,7 @@ const createSummaryView = (questions) => {
     );
   });
 
-  return { root };
-};
+  return { root, restartButton };
+}
 
 export default createSummaryView;

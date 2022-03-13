@@ -1,8 +1,8 @@
 import { createElement } from '../lib/domHelpers.js';
 import createButtonsViewWrapper from './buttonsWrapperView.js';
 
-const createQuestionButtonView = () => {
-  const { root } = createButtonsViewWrapper();
+function createQuestionButtonView(parent) {
+  const { root } = createButtonsViewWrapper(parent);
 
   const giveUpButton = createElement('button', {
     class: 'btn btn-giveup scale-hover',
@@ -17,6 +17,6 @@ const createQuestionButtonView = () => {
   });
 
   return { root, giveUpButton, nextButton };
-};
+}
 
 export default createQuestionButtonView;

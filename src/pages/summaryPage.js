@@ -1,15 +1,14 @@
-import createSummaryView from '../views/summaryView.js';
+import loadPage from '../lib/pageLoader.js';
 import createMainView from '../views/mainView.js';
+import createSummaryView from '../views/summaryView.js';
+import createHomePage from './homePage.js';
 
-const createSummaryPage = ({ questions, intervalId }) => {
-  clearInterval(intervalId);
-
+function createSummaryPage(data) {
+  clearInterval(data.intervalId);
   const { root } = createMainView();
-
-  const summaryView = createSummaryView(questions);
-  root.appendChild(summaryView.root);
-
+  const { restartButton } = createSummaryView(root, data.questions);
+  restartButton.addEventListener('click', () => loadPage(createHomePage));
   return { root };
-};
+}
 
 export default createSummaryPage;

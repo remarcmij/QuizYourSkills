@@ -9,7 +9,7 @@
  * @param {object} options An object with key-value pairs of attributes.
  * @returns
  */
-export const createElement = (tagName = 'div', options = {}) => {
+export function createElement(tagName = 'div', options = {}) {
   const elem = document.createElement(tagName);
 
   // `text` is not a regular attribute but must be set via `.textContent`
@@ -30,14 +30,14 @@ export const createElement = (tagName = 'div', options = {}) => {
   }
 
   return elem;
-};
+}
 
 /**
  * Removes all child elements of an element.
  * @param {HTMLElement} elem The HTML element to clear.
  */
-export const clearElement = (elem) => {
+export function clearElement(elem) {
   while (elem.firstChild) {
     elem.removeChild(elem.firstChild);
   }
-};
+}

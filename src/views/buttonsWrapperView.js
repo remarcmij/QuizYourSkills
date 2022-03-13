@@ -1,8 +1,11 @@
 import { createElement } from '../lib/domHelpers.js';
 
-const createButtonsViewWrapper = () => {
-  const root = createElement('div', { class: 'btns-wrapper' });
+function createButtonsViewWrapper(parent) {
+  const root = createElement('div', {
+    class: 'btns-wrapper',
+    appendTo: parent,
+  });
   return { root };
-};
+}
 
 export default createButtonsViewWrapper;

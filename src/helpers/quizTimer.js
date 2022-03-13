@@ -1,10 +1,8 @@
-function quizTimer(elem, data) {
-  data.elapsed = 0;
+function quizTimer(elem) {
+  let secs = 0;
   const pad = (val) => (val > 9 ? val : '0' + val);
   return setInterval(() => {
-    elem.textContent = `${pad(parseInt(data.elapsed / 60, 10))}:${pad(
-      ++data.elapsed % 60
-    )}`;
+    elem.textContent = `${pad(parseInt(secs / 60, 10))}:${pad(++secs % 60)}`;
   }, 1000);
 }
 

@@ -19,8 +19,7 @@ function createQuizPage() {
 
   const onNext = () => {
     data.questionIndex += 1;
-    if (data.questionIndex < 2) {
-      // < questions.length) {
+    if (data.questionIndex < questions.length) {
       quizView.update('next', data);
     } else {
       clearInterval(intervalId);

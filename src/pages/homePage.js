@@ -7,9 +7,7 @@ import { quizData } from '../data.js';
 function createHomePage() {
   const { root } = createMainView();
 
-  const homeView = createHomeView(root);
-
-  homeView.startBtn.addEventListener('click', () => {
+  const onStart = () => {
     const shuffledQuestions = [...quizData.questions].sort(
       () => Math.random() - 0.5
     );
@@ -22,7 +20,10 @@ function createHomePage() {
     };
 
     loadPage(createQuizPage, data);
-  });
+  };
+
+  const homeView = createHomeView({ onStart });
+  root.appendChild(homeView.root);
 
   return { root };
 }

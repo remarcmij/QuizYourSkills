@@ -1,10 +1,9 @@
 import { createElement } from '../lib/domHelpers.js';
 import createButtonsViewWrapper from './buttonsWrapperView.js';
 
-function createHomeView(parent) {
+function createHomeView(props) {
   const root = createElement('div', {
     class: 'title-wrapper',
-    appendTo: parent,
   });
   createElement('h1', {
     class: 'typewriter-title',
@@ -25,8 +24,9 @@ function createHomeView(parent) {
     text: '<Start>',
     appendTo: buttonsWrapper,
   });
+  startBtn.addEventListener('click', props.onStart);
 
-  return { root, startBtn };
+  return { root };
 }
 
 export default createHomeView;

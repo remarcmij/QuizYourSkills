@@ -1,9 +1,10 @@
 import { createElement } from '../lib/domHelpers.js';
 
-function createTopWrapperView(parent) {
+function createTopWrapperView() {
+  let secs = 0;
+
   const root = createElement('div', {
     class: 'quiz-top-wrapper',
-    appendTo: parent,
   });
   const counter = createElement('p', {
     class: 'counter',
@@ -13,14 +14,25 @@ function createTopWrapperView(parent) {
   const timerContainer = createElement('p', { class: 'timer', appendTo: root });
   const time = createElement('span', {
     class: 'time',
+    text: '00:00',
     appendTo: timerContainer,
   });
 
+  const update = (action, data) => {
+    counter.textContent = `${data.questionIndex + 1}/${data.questions.length}`;
+    corrects.textContent = `${data.correctCount} Correct of ${data.questions.length}`;
+  };
+
+  const updateTimer = () => {
+    secs += 1;
+    const pad = (val) => (val > 9 ? val : '0' + val);
+    time.textContent = `${pad(parseInt(secs / 60, 10))}:${pad(++secs % 60)}`;
+  };
+
   return {
     root,
-    counter,
-    corrects,
-    time,
+    update,
+    updateTimer,
   };
 }
 

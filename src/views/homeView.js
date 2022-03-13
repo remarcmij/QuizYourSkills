@@ -1,29 +1,30 @@
 import { createElement } from '../lib/domHelpers.js';
 import createButtonsViewWrapper from './buttonsWrapperView.js';
-import createStartButtonView from './startButtonView.js';
 
 const createHomeView = () => {
   const root = createElement('div', { class: 'title-wrapper' });
 
-  root.appendChild(
-    createElement('h1', {
-      class: 'typewriter-title',
-      text: 'QuizYourSkills',
-    })
-  );
+  createElement('h1', {
+    class: 'typewriter-title',
+    text: 'QuizYourSkills',
+    appendTo: root,
+  });
 
-  root.appendChild(
-    createElement('h2', {
-      class: 'unicode',
-      text: '\u261f',
-    })
-  );
+  createElement('h2', {
+    class: 'unicode',
+    text: '\u261f',
+    appendTo: root,
+  });
 
   const { root: buttonsWrapper } = createButtonsViewWrapper();
   root.appendChild(buttonsWrapper);
 
-  const { root: startBtn } = createStartButtonView();
-  root.appendChild(startBtn);
+  const startBtn = createElement('button', {
+    type: 'submit',
+    class: 'btn btn-start scale-hover',
+    text: '<Start>',
+    appendTo: root,
+  });
 
   return { root, startBtn };
 };

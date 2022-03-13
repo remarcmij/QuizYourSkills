@@ -6,29 +6,30 @@ import createSummaryPage from './summaryPage.js';
 import quizTimer from '../helpers/quizTimer.js';
 
 const createQuestionPage = (data) => {
-  const { root: mainContainer } = createMainView();
+  const { root } = createMainView();
 
   const topWrapperView = createTopWrapperView(data);
+  data.intervalId = quizTimer(topWrapperView.time, data);
 
-  mainContainer.appendChild(topWrapperView.root);
+  root.appendChild(topWrapperView.root);
 
   const questionView = createQuestionView();
-  mainContainer.appendChild(questionView.root);
+  root.appendChild(questionView.root);
 
   questionView.update('new', data);
 
   const onClick = (event) => {
     const currentQuestion = data.questions[data.questionIndex];
-    const selectedAnswer = event.target;
-    const selected = selectedAnswer.getAttribute('data-key');
-    currentQuestion.selected = selected;
+    const selectedAnswerElement = event.target;
+    currentQuestion.selected = selectedAnswerElement.getAttribute('data-key');
 
-    if (selected === currentQuestion.correct) {
-      mainContainer.classList.add('correct-container');
+    if (currentQuestion.selected === currentQuestion.correct) {
+      root.classList.add('correct-container');
       data.correctCount += 1;
     } else {
-      mainContainer.classList.add('wrong-container');
+      root.classList.add('wrong-container');
     }
+
     topWrapperView.corrects.textContent = `${data.correctCount} Correct of ${data.questions.length}`;
 
     questionView.update('update', data);
@@ -51,11 +52,7 @@ const createQuestionPage = (data) => {
     }
   });
 
-  if (!data.intervalId) {
-    data.intervalId = quizTimer(topWrapperView.time, data);
-  }
-
-  return { root: mainContainer };
+  return { root };
 };
 
 export default createQuestionPage;

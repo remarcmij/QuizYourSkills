@@ -1,22 +1,20 @@
-import { createElement } from '../lib/domHelpers.js';
-import createButtonsViewWrapper from './buttonsWrapperView.js';
-
 function createQuestionButtonView(props) {
-  const { root } = createButtonsViewWrapper();
+  const root = document.createElement('div');
+  root.setAttribute('class', 'btns-wrapper');
+  root.innerHTML = String.raw`<div class="btns-wrapper">
+      <button type="submit" class="btn btn-next scale-hover">
+          &lt;Next&gt;
+        </button>
+      <button class="btn btn-giveup scale-hover hidden">
+        &lt;Give Up&gt;
+      </button>
+    </div>`;
 
-  const giveUpButton = createElement('button', {
-    class: 'btn btn-giveup scale-hover',
-    text: '<Give Up>',
-    appendTo: root,
-  });
-  giveUpButton.addEventListener('click', props.onGiveUp);
-
-  const nextButton = createElement('button', {
-    class: 'btn btn-next scale-hover hidden',
-    text: '<Next>',
-    appendTo: root,
-  });
+  const nextButton = root.querySelector('.btn-next');
   nextButton.addEventListener('click', props.onNext);
+
+  const giveUpButton = root.querySelector('.btn-giveup');
+  giveUpButton.addEventListener('click', props.onGiveUp);
 
   const update = (action) => {
     switch (action) {

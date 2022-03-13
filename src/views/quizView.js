@@ -1,35 +1,33 @@
-import { clearElement, createElement } from '../lib/domHelpers.js';
-import createMainView from '../views/mainView.js';
 import createTopWrapperView from '../views/topWrapperView.js';
 import createQuestionButtonView from './questionButtonView.js';
 
-const getCurrentQuestion = (data) => data.questions[data.questionIndex];
+const getCurrentQuestion = (context) =>
+  context.questions[context.questionIndex];
 
 function renderAnswerElements(answersList, question) {
-  clearElement(answersList);
+  answersList.innerHTML = '';
   const answerElements = [];
+
   for (const [key, value] of Object.entries(question.answers)) {
-    const p = createElement('p', {
-      class: 'answer typewriter-answer shadow-hover',
-      'data-key': key,
-      text: value,
-      appendTo: answersList,
-    });
-    answerElements.push(p);
+    const para = document.createElement('p');
+    para.setAttribute('class', 'answer typewriter-answer shadow-hover');
+    para.setAttribute('data-key', key);
+    para.textContent = value;
+    answersList.append(para);
+    answerElements.push(para);
   }
+
   return answerElements;
 }
 
 function renderLinks(question, linksWrapper) {
-  clearElement(linksWrapper);
+  linksWrapper.innerHTML = '';
   question.links.forEach((link) => {
-    const aElement = createElement('a', {
-      class: 'link',
-      text: link.text,
-      href: link.href,
-      target: '_blanks==',
-    });
-    linksWrapper.append(aElement);
+    const linkElement = document.createElement('a');
+    linkElement.setAttribute('class', 'link');
+    linkElement.setAttribute('href', link.href);
+    linkElement.setAttribute('target', '_blank');
+    linksWrapper.append(linkElement);
   });
 }
 
@@ -50,47 +48,47 @@ function findAnswerElementByKey(answerElements, key) {
 function createQuizView(props) {
   let answerElements;
 
-  const { root } = createMainView();
+  const root = document.createElement('div');
+  root.setAttribute('class', 'hero centered');
+
   const topWrapperView = createTopWrapperView();
   root.appendChild(topWrapperView.root);
 
-  const bottomWrapper = createElement('div', {
-    class: 'quiz-bottom-wrapper',
-    appendTo: root,
-  });
-  const questionText = createElement('p', {
-    class: 'question',
-    appendTo: bottomWrapper,
-  });
+  const bottomWrapper = document.createElement('div');
+  bottomWrapper.setAttribute('class', 'quiz-bottom-wrapper');
+  root.appendChild(bottomWrapper);
+  bottomWrapper.innerHTML = String.raw`
+    <p class="question"></p>
 
-  const answersContainer = createElement('div', {
-    class: 'answers-container',
-    appendTo: bottomWrapper,
-  });
+    <!-- wrapper for all answers -->
+    <div class="answers-container"></div>
+
+    <!-- wrapper for learning sources -->
+    <!-- title for wrapper -->
+    <p class="hints-text">Need help?</p>
+    <div class="links-wrapper"></div>
+  `;
+
+  const questionText = bottomWrapper.querySelector('.question');
+  const answersContainer = bottomWrapper.querySelector('.answers-container');
+  const linksWrapper = bottomWrapper.querySelector('.links-wrapper');
+
   answersContainer.addEventListener('click', props.onAnswerClick);
-
-  createElement('p', {
-    class: 'hints-text',
-    text: 'Need help?',
-    appendTo: bottomWrapper,
-  });
-  const linksWrapper = createElement('div', {
-    class: 'links-wrapper',
-    appendTo: bottomWrapper,
-  });
 
   const questionButtonView = createQuestionButtonView(props);
   root.appendChild(questionButtonView.root);
 
-  function createNewQuestion(data) {
-    const question = getCurrentQuestion(data);
+  function createNewQuestion(context) {
+    const question = getCurrentQuestion(context);
     questionText.textContent = question.text;
     answerElements = renderAnswerElements(answersContainer, question);
     renderLinks(question, linksWrapper);
+    root.classList.remove('correct-container');
+    root.classList.remove('wrong-container');
   }
 
-  function updateAnsweredQuestion(data) {
-    const question = getCurrentQuestion(data);
+  function updateAnsweredQuestion(context) {
+    const question = getCurrentQuestion(context);
     removePointerEvents(answerElements);
 
     const selectedAnswerElement = findAnswerElementByKey(
@@ -106,7 +104,7 @@ function createQuizView(props) {
     if (question.selected === question.correct) {
       selectedAnswerElement.classList.add('correct-answer');
       root.classList.add('correct-container');
-      data.correctCount += 1;
+      context.correctCount += 1;
     } else {
       selectedAnswerElement.classList.add('wrong-answer');
       correctAnswerElement.classList.add('correct-answer');
@@ -114,31 +112,31 @@ function createQuizView(props) {
     }
   }
 
-  function giveUp(data) {
-    const question = getCurrentQuestion(data);
+  function giveUp(context) {
+    const question = getCurrentQuestion(context);
     removePointerEvents(answerElements);
     findAnswerElementByKey(answerElements, question.correct).classList.add(
       'correct-answer'
     );
   }
 
-  function update(action, data) {
+  function update(action, context) {
     switch (action) {
       case 'next':
-        createNewQuestion(data);
+        createNewQuestion(context);
         break;
       case 'update':
-        updateAnsweredQuestion(data);
+        updateAnsweredQuestion(context);
         break;
       case 'giveup':
-        giveUp(data);
+        giveUp(context);
         break;
       default:
         throw new Error(`Unsupported action: ${action}`);
     }
 
-    topWrapperView.update(action, data);
-    questionButtonView.update(action, data);
+    topWrapperView.update(action, context);
+    questionButtonView.update(action, context);
   }
 
   return {

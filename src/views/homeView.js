@@ -1,31 +1,20 @@
-import { createElement } from '../lib/domHelpers.js';
-import createButtonsViewWrapper from './buttonsWrapperView.js';
-
 function createHomeView(props) {
-  const root = createElement('div', {
-    class: 'title-wrapper',
-  });
-  createElement('h1', {
-    class: 'typewriter-title',
-    text: 'QuizYourSkills',
-    appendTo: root,
-  });
-  createElement('h2', {
-    class: 'unicode',
-    text: '\u261f',
-    appendTo: root,
-  });
+  const root = document.createElement('div');
+  root.setAttribute('class', 'hero centered');
+  root.innerHTML = String.raw`
+    <div class="title-wrapper">
+      <h1 class="typewriter-title">QuizYourSkills</h1>
+      <h2 class="unicode">&#9759;</h2>
+    </div>
+    div class="btns-wrapper">
+      <button type="submit" class="btn btn-start scale-hover">
+        &lt;Start&gt;
+      </button>
+    </div>
+  `;
 
-  const { root: buttonsWrapper } = createButtonsViewWrapper(root);
-
-  const startBtn = createElement('button', {
-    type: 'submit',
-    class: 'btn btn-start scale-hover',
-    text: '<Start>',
-    appendTo: buttonsWrapper,
-  });
-  startBtn.addEventListener('click', props.onStart);
-
+  const startButton = root.querySelector('.btn-start');
+  startButton.addEventListener('click', props.onStart);
   return { root };
 }
 

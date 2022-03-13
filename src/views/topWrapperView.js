@@ -1,26 +1,25 @@
-import { createElement } from '../lib/domHelpers.js';
-
 function createTopWrapperView() {
   let secs = 0;
 
-  const root = createElement('div', {
-    class: 'quiz-top-wrapper',
-  });
-  const counter = createElement('p', {
-    class: 'counter',
-    appendTo: root,
-  });
-  const corrects = createElement('p', { class: 'corrects', appendTo: root });
-  const timerContainer = createElement('p', { class: 'timer', appendTo: root });
-  const time = createElement('span', {
-    class: 'time',
-    text: '00:00',
-    appendTo: timerContainer,
-  });
+  const root = document.createElement('div')
+  root.setAttribute('class', 'quiz-top-wrapper');
+  root.innerHTML = String.raw`
+    <p class="counter"></p>
+    <p class="corrects"></p>
+    <p class="timer">
+      <span class="time">00:00</span>
+    </p>
+  `;
 
-  const update = (action, data) => {
-    counter.textContent = `${data.questionIndex + 1}/${data.questions.length}`;
-    corrects.textContent = `${data.correctCount} Correct of ${data.questions.length}`;
+  const counter = root.querySelector('.counter');
+  const corrects = root.querySelector('.corrects');
+  const time = root.querySelector('.time');
+
+  const update = (action, context) => {
+    counter.textContent = `${context.questionIndex + 1}/${
+      context.questions.length
+    }`;
+    corrects.textContent = `${context.correctCount} Correct of ${context.questions.length}`;
   };
 
   const updateTimer = () => {

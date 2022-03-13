@@ -1,11 +1,11 @@
-import { createElement } from './lib/domHelpers.js';
 import loadPage from './lib/pageLoader.js';
 import createHomePage from './pages/homePage.js';
 
 function loadApp() {
   const appRoot = document.getElementById('app-root');
 
-  const pageContainer = createElement('div', { id: 'page-root' });
+  const pageContainer = document.createElement('div');
+  pageContainer.setAttribute('id', 'page-root');
   appRoot.appendChild(pageContainer);
 
   loadPage(createHomePage);

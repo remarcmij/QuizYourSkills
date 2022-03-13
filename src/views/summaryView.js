@@ -1,47 +1,38 @@
-import { createElement } from '../lib/domHelpers.js';
-import createButtonsViewWrapper from './buttonsWrapperView.js';
-
 function createSummaryView(props) {
-  const root = createElement('div', {
-    class: 'game-end-root',
-  });
+  const root = document.createElement('div');
+  root.setAttribute('class', 'hero centered');
+  root.innerHTML = String.raw`
+    <div class="game-end-wrapper">
+      <h3 class="end-msg typewriter-title">
+        Thank you for taking JavaScript Quiz!
+      </h3>
+      <div class="summary"></div>
+    </div>
+    <div class="btns-wrapper">
+      <button type="submit" class="btn btn-restart scale-hover"">
+        &lt;Next&gt;
+      </button>
+    </div>
+  `;
 
-  const title = createElement('h3', {
-    class: 'end-msg typewriter-title',
-    text: 'Thank you for taking JavaScript Quiz!',
-  });
-  root.appendChild(title);
-
-  const container = createElement('div', { class: 'summary' });
-  root.appendChild(container);
-
-  const buttonsWrapper = createButtonsViewWrapper(root);
-
-  const restartButton = createElement('button', {
-    type: 'button',
-    class: 'btn btn-restart scale-hover',
-    text: '<Restart Quiz>',
-    appendTo: buttonsWrapper.root,
-  });
+  const container = root.querySelector('.summary');
+  const restartButton = root.querySelector('.btn-restart');
   restartButton.addEventListener('click', props.onRestart);
 
-  const update = (data) => {
-    data.questions.forEach((question) => {
-      const correctAnswer = question.answers[question.correct];
-      const chosenAnswer = question.answers[question.selected];
-      const h3 = createElement('h3', { class: 'summary-question' });
-      container.appendChild(h3);
-      h3.appendChild(createElement('div', { text: question.text }));
-      h3.appendChild(
-        createElement('div', { text: `correct answer is: ${correctAnswer}` })
-      );
-      h3.appendChild(
-        createElement('div', { text: `chosen answer is: ${chosenAnswer}` })
-      );
-    });
-  };
+  props.questions.forEach((question) => {
+    const correctAnswer = question.answers[question.correct];
+    const chosenAnswer = question.answers[question.selected];
+    const h3 = document.createElement('h3');
+    h3.setAttribute('class', 'summary-question');
+    container.appendChild(h3);
+    h3.innerHTML = String.raw`
+      <div>${question.text}</div>
+      <div>correct answer is: ${correctAnswer}</div>
+      <div>chosen answer is: ${chosenAnswer}</div>
+    `;
+  });
 
-  return { root, update };
+  return { root };
 }
 
 export default createSummaryView;

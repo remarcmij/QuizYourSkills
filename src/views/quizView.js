@@ -22,28 +22,16 @@ function renderFixedParts(container) {
   return { questionText, answersList, linksWrapper };
 }
 
-function createQuestionView() {
+function createQuizView() {
   const root = createElement('div', { class: 'quiz-bottom-wrapper' });
 
   const { questionText, answersList, linksWrapper } = renderFixedParts(root);
 
   const questionButtonView = createQuestionButtonView();
   root.appendChild(questionButtonView.root);
+  const { nextButton, giveUpButton } = questionButtonView;
 
   let answerElements;
-
-  function renderLinks(question) {
-    clearElement(linksWrapper);
-    question.links.forEach((link) => {
-      const aElement = createElement('a', {
-        class: 'link',
-        text: link.text,
-        href: link.href,
-        target: '_blanks==',
-      });
-      linksWrapper.append(aElement);
-    });
-  }
 
   function renderQuestion(question) {
     questionText.textContent = question.text;
@@ -61,9 +49,22 @@ function createQuestionView() {
     }
   }
 
-  function newQuestion(question) {
-    renderLinks(question);
+  function renderLinks(question) {
+    clearElement(linksWrapper);
+    question.links.forEach((link) => {
+      const aElement = createElement('a', {
+        class: 'link',
+        text: link.text,
+        href: link.href,
+        target: '_blanks==',
+      });
+      linksWrapper.append(aElement);
+    });
+  }
+
+  function createNewQuestion(question) {
     renderQuestion(question);
+    renderLinks(question);
   }
 
   function findAnswerElementByKey(key) {
@@ -76,13 +77,12 @@ function createQuestionView() {
     return elem;
   }
 
-  function updateQuestion(question) {
+  function updateCurrentQuestion(question) {
     for (const elem of answerElements) {
       elem.style.pointerEvents = 'none';
     }
 
     const selectedAnswerElement = findAnswerElementByKey(question.selected);
-
     if (question.selected === question.correct) {
       selectedAnswerElement.classList.add('correct-answer');
     } else {
@@ -90,26 +90,20 @@ function createQuestionView() {
       findAnswerElementByKey(question.correct).classList.add('correct-answer');
     }
 
-    questionButtonView.nextButton.classList.remove('hidden');
-    questionButtonView.giveUpButton.classList.add('hidden');
+    nextButton.classList.remove('hidden');
+    giveUpButton.classList.add('hidden');
   }
 
   function update(action, data) {
     const currentQuestion = data.questions[data.questionIndex];
     if (action === 'new') {
-      newQuestion(currentQuestion);
+      createNewQuestion(currentQuestion);
     } else {
-      updateQuestion(currentQuestion);
+      updateCurrentQuestion(currentQuestion);
     }
   }
 
-  return {
-    root,
-    answersList,
-    nextButton: questionButtonView.nextButton,
-    giveUpButton: questionButtonView.giveUpButton,
-    update,
-  };
+  return { root, answersList, nextButton, giveUpButton, update };
 }
 
-export default createQuestionView;
+export default createQuizView;

@@ -1,7 +1,7 @@
 import loadPage from '../lib/pageLoader.js';
 import createHomeView from '../views/homeView.js';
 import createMainView from '../views/mainView.js';
-import createQuestionPage from './questionPage.js';
+import createQuizPage from './quizPage.js';
 import { quizData } from '../data.js';
 
 const createHomePage = () => {
@@ -22,7 +22,7 @@ const createHomePage = () => {
       elapsed: 0,
     };
 
-    loadPage(createQuestionPage, data);
+    loadPage(createQuizPage, data);
   });
 
   return { root };

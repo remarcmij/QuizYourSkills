@@ -1,11 +1,11 @@
 import createMainView from '../views/mainView.js';
 import createTopWrapperView from '../views/topWrapperView.js';
 import loadPage from '../lib/pageLoader.js';
-import createQuestionView from '../views/questionView.js';
+import createQuizView from '../views/quizView.js';
 import createSummaryPage from './summaryPage.js';
 import quizTimer from '../helpers/quizTimer.js';
 
-const createQuestionPage = (data) => {
+const createQuizPage = (data) => {
   const { root } = createMainView();
 
   const topWrapperView = createTopWrapperView(data);
@@ -13,10 +13,8 @@ const createQuestionPage = (data) => {
 
   root.appendChild(topWrapperView.root);
 
-  const questionView = createQuestionView();
+  const questionView = createQuizView();
   root.appendChild(questionView.root);
-
-  questionView.update('new', data);
 
   const onClick = (event) => {
     const currentQuestion = data.questions[data.questionIndex];
@@ -45,14 +43,14 @@ const createQuestionPage = (data) => {
     data.questionIndex += 1;
     if (data.questionIndex < 2) {
       //questions.length) {fx
-      // loadPage(createQuestionPage, data);
       questionView.update('new', data);
     } else {
       loadPage(createSummaryPage, data);
     }
   });
 
+  questionView.update('new', data);
   return { root };
 };
 
-export default createQuestionPage;
+export default createQuizPage;

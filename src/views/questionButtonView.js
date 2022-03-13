@@ -1,14 +1,14 @@
 function createQuestionButtonView(props) {
   const root = document.createElement('div');
   root.setAttribute('class', 'btns-wrapper');
-  root.innerHTML = String.raw`<div class="btns-wrapper">
-      <button type="submit" class="btn btn-next scale-hover">
-          &lt;Next&gt;
-        </button>
-      <button class="btn btn-giveup scale-hover hidden">
-        &lt;Give Up&gt;
+  root.innerHTML = String.raw`
+    <button type="submit" class="btn btn-next scale-hover">
+        &lt;Next&gt;
       </button>
-    </div>`;
+    <button class="btn btn-giveup scale-hover hidden">
+      &lt;Give Up&gt;
+    </button>
+  `;
 
   const nextButton = root.querySelector('.btn-next');
   nextButton.addEventListener('click', props.onNext);

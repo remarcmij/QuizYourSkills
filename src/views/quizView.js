@@ -27,6 +27,7 @@ function renderLinks(question, linksWrapper) {
     linkElement.setAttribute('class', 'link');
     linkElement.setAttribute('href', link.href);
     linkElement.setAttribute('target', '_blank');
+    linkElement.textContent = link.text;
     linksWrapper.append(linkElement);
   });
 }

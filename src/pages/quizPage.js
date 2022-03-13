@@ -23,8 +23,7 @@ function createQuizPage() {
 
   quizView.nextButton.addEventListener('click', () => {
     data.questionIndex += 1;
-    if (data.questionIndex < 2) {
-      //questions.length) {fx
+    if (data.questionIndex < questions.length) {
       quizView.update('next', data);
     } else {
       clearInterval(intervalId);

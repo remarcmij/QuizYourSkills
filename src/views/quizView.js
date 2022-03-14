@@ -1,8 +1,7 @@
 import createTopWrapperView from '../views/topWrapperView.js';
 import createQuestionButtonView from './questionButtonView.js';
 
-const getCurrentQuestion = (context) =>
-  context.questions[context.questionIndex];
+const getCurrentQuestion = (data) => data.questions[data.questionIndex];
 
 function renderAnswerElements(answersList, question) {
   answersList.innerHTML = '';
@@ -79,8 +78,8 @@ function createQuizView(props) {
   const questionButtonView = createQuestionButtonView(props);
   root.appendChild(questionButtonView.root);
 
-  function createNewQuestion(context) {
-    const question = getCurrentQuestion(context);
+  function createNewQuestion(data) {
+    const question = getCurrentQuestion(data);
     questionText.textContent = question.text;
     answerElements = renderAnswerElements(answersContainer, question);
     renderLinks(question, linksWrapper);
@@ -88,8 +87,8 @@ function createQuizView(props) {
     root.classList.remove('wrong-container');
   }
 
-  function updateAnsweredQuestion(context) {
-    const question = getCurrentQuestion(context);
+  function updateAnsweredQuestion(data) {
+    const question = getCurrentQuestion(data);
     removePointerEvents(answerElements);
 
     const selectedAnswerElement = findAnswerElementByKey(
@@ -105,7 +104,7 @@ function createQuizView(props) {
     if (question.selected === question.correct) {
       selectedAnswerElement.classList.add('correct-answer');
       root.classList.add('correct-container');
-      context.correctCount += 1;
+      data.correctCount += 1;
     } else {
       selectedAnswerElement.classList.add('wrong-answer');
       correctAnswerElement.classList.add('correct-answer');
@@ -113,31 +112,31 @@ function createQuizView(props) {
     }
   }
 
-  function giveUp(context) {
-    const question = getCurrentQuestion(context);
+  function giveUp(data) {
+    const question = getCurrentQuestion(data);
     removePointerEvents(answerElements);
     findAnswerElementByKey(answerElements, question.correct).classList.add(
       'correct-answer'
     );
   }
 
-  function update(context) {
-    switch (context.action) {
+  function update(data) {
+    switch (data.action) {
       case 'next':
-        createNewQuestion(context);
+        createNewQuestion(data);
         break;
       case 'update':
-        updateAnsweredQuestion(context);
+        updateAnsweredQuestion(data);
         break;
       case 'giveup':
-        giveUp(context);
+        giveUp(data);
         break;
       default:
-        throw new Error(`Unsupported action: ${context.action}`);
+        throw new Error(`Unsupported action: ${data.action}`);
     }
 
-    topWrapperView.update(context);
-    questionButtonView.update(context);
+    topWrapperView.update(data);
+    questionButtonView.update(data);
   }
 
   return {

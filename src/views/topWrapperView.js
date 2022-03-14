@@ -15,11 +15,9 @@ function createTopWrapperView() {
   const corrects = root.querySelector('.corrects');
   const time = root.querySelector('.time');
 
-  const update = (context) => {
-    counter.textContent = `${context.questionIndex + 1}/${
-      context.questions.length
-    }`;
-    corrects.textContent = `${context.correctCount} Correct of ${context.questions.length}`;
+  const update = (data) => {
+    counter.textContent = `${data.questionIndex + 1}/${data.questions.length}`;
+    corrects.textContent = `${data.correctCount} Correct of ${data.questions.length}`;
   };
 
   const updateTimer = () => {

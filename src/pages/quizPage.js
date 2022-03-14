@@ -2,30 +2,30 @@ import loadPage from '../lib/pageLoader.js';
 import createQuizView from '../views/quizView.js';
 import createSummaryPage from './summaryPage.js';
 
-function createQuizPage(context) {
+function createQuizPage(data) {
   // Event handler for a click on an answer option
   const onAnswerClick = (event) => {
     const key = event.target.getAttribute('data-key');
-    context.questions[context.questionIndex].selected = key;
-    context.action = 'update';
-    quizView.update(context);
+    data.questions[data.questionIndex].selected = key;
+    data.action = 'update';
+    quizView.update(data);
   };
 
   // Event handler for the Give Up button
   const onGiveUp = () => {
-    context.action = 'giveup';
-    quizView.update(context);
+    data.action = 'giveup';
+    quizView.update(data);
   };
 
   // Event handler for the Next button
   const onNext = () => {
-    context.questionIndex += 1;
-    if (context.questionIndex < context.questions.length) {
-      context.action = 'next';
-      quizView.update(context);
+    data.questionIndex += 1;
+    if (data.questionIndex < data.questions.length) {
+      data.action = 'next';
+      quizView.update(data);
     } else {
       clearInterval(intervalId);
-      loadPage(createSummaryPage, context);
+      loadPage(createSummaryPage, data);
     }
   };
 
@@ -36,8 +36,8 @@ function createQuizPage(context) {
   const intervalId = setInterval(quizView.updateTimer, 1000);
 
   // Start the first question
-  context.action = 'next';
-  quizView.update(context);
+  data.action = 'next';
+  quizView.update(data);
 
   return { root: quizView.root };
 }

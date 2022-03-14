@@ -16,8 +16,8 @@ function createQuestionButtonView(props) {
   const btnGiveUp = root.querySelector('.btn-giveup');
   btnGiveUp.addEventListener('click', props.onGiveUp);
 
-  const update = (context) => {
-    switch (context.action) {
+  const update = (data) => {
+    switch (data.action) {
       case 'next':
         btnGiveUp.classList.remove('hidden');
         btnNext.classList.add('hidden');

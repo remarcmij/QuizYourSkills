@@ -9,16 +9,16 @@ function createHomePage() {
       () => Math.random() - 0.5
     );
 
-    // This context data object represents the application state and is passed
+    // This data dobject represents the application state and is passed
     // around by the page loader.
-    const context = {
+    const data = {
       questions: shuffledQuestions,
       questionIndex: 0,
       correctCount: 0,
       elapsed: 0,
     };
 
-    loadPage(createQuizPage, context);
+    loadPage(createQuizPage, data);
   };
 
   return createHomeView({ onStart });

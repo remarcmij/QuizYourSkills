@@ -2,7 +2,7 @@ function createTopWrapperView() {
   let secs = 0;
 
   const root = document.createElement('div');
-  root.setAttribute('class', 'quiz-top-wrapper');
+  root.className = 'quiz-top-wrapper';
   root.innerHTML = String.raw`
     <p class="counter"></p>
     <p class="corrects"></p>

@@ -10,7 +10,7 @@ function renderAnswerElements(answersList, question) {
 
   for (const [key, value] of Object.entries(question.answers)) {
     const para = document.createElement('p');
-    para.setAttribute('class', 'answer typewriter-answer shadow-hover');
+    para.className = 'answer typewriter-answer shadow-hover';
     para.setAttribute('data-key', key);
     para.textContent = value;
     answersList.append(para);
@@ -24,9 +24,9 @@ function renderLinks(question, linksWrapper) {
   linksWrapper.innerHTML = '';
   question.links.forEach((link) => {
     const linkElement = document.createElement('a');
-    linkElement.setAttribute('class', 'link');
-    linkElement.setAttribute('href', link.href);
-    linkElement.setAttribute('target', '_blank');
+    linkElement.className = 'link';
+    linkElement.href = link.href;
+    linkElement.target = '_blank';
     linkElement.textContent = link.text;
     linksWrapper.append(linkElement);
   });
@@ -50,13 +50,13 @@ function createQuizView(props) {
   let answerElements;
 
   const root = document.createElement('div');
-  root.setAttribute('class', 'hero centered');
+  root.className = 'hero centered';
 
   const topWrapperView = createTopWrapperView();
   root.appendChild(topWrapperView.root);
 
   const bottomWrapper = document.createElement('div');
-  bottomWrapper.setAttribute('class', 'quiz-bottom-wrapper');
+  bottomWrapper.className = 'quiz-bottom-wrapper';
   root.appendChild(bottomWrapper);
   bottomWrapper.innerHTML = String.raw`
     <p class="question"></p>

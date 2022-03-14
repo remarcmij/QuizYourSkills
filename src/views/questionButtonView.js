@@ -1,6 +1,6 @@
 function createQuestionButtonView(props) {
   const root = document.createElement('div');
-  root.setAttribute('class', 'btns-wrapper');
+  root.className = 'btns-wrapper';
   root.innerHTML = String.raw`
     <button type="submit" class="btn btn-next scale-hover">
         &lt;Next&gt;

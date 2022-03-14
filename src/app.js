@@ -5,7 +5,7 @@ function loadApp() {
   const appRoot = document.getElementById('app-root');
 
   const pageContainer = document.createElement('div');
-  pageContainer.setAttribute('id', 'page-root');
+  pageContainer.id = 'page-root';
   appRoot.appendChild(pageContainer);
 
   loadPage(createHomePage);

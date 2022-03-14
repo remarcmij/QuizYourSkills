@@ -1,6 +1,6 @@
 function createHomeView(props) {
   const root = document.createElement('div');
-  root.setAttribute('class', 'hero centered');
+  root.className = 'hero centered';
   root.innerHTML = String.raw`
     <div class="title-wrapper">
       <h1 class="typewriter-title">QuizYourSkills</h1>

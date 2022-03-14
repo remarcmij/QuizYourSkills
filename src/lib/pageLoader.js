@@ -5,7 +5,7 @@
 /**
  * Create and load a page, replacing an existing.
  * @param {PageFunction} createPageFn A Page function.
- * @param {object} [data] Any arguments that should be passed to the Page function.
+ * @param {object} [data] An option data object.
  */
 function loadPage(createPageFn, data) {
   const { root } = createPageFn(data);

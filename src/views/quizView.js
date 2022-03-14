@@ -121,8 +121,8 @@ function createQuizView(props) {
     );
   }
 
-  function update(action, context) {
-    switch (action) {
+  function update(context) {
+    switch (context.action) {
       case 'next':
         createNewQuestion(context);
         break;
@@ -133,11 +133,11 @@ function createQuizView(props) {
         giveUp(context);
         break;
       default:
-        throw new Error(`Unsupported action: ${action}`);
+        throw new Error(`Unsupported action: ${context.action}`);
     }
 
-    topWrapperView.update(action, context);
-    questionButtonView.update(action, context);
+    topWrapperView.update(context);
+    questionButtonView.update(context);
   }
 
   return {

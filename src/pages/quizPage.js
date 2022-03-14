@@ -7,19 +7,22 @@ function createQuizPage(context) {
   const onAnswerClick = (event) => {
     const key = event.target.getAttribute('data-key');
     context.questions[context.questionIndex].selected = key;
-    quizView.update('update', context);
+    context.action = 'update';
+    quizView.update(context);
   };
 
   // Event handler for the Give Up button
   const onGiveUp = () => {
-    quizView.update('giveup', context);
+    context.action = 'giveup';
+    quizView.update(context);
   };
 
   // Event handler for the Next button
   const onNext = () => {
     context.questionIndex += 1;
     if (context.questionIndex < context.questions.length) {
-      quizView.update('next', context);
+      context.action = 'next';
+      quizView.update(context);
     } else {
       clearInterval(intervalId);
       loadPage(createSummaryPage, context);
@@ -33,7 +36,8 @@ function createQuizPage(context) {
   const intervalId = setInterval(quizView.updateTimer, 1000);
 
   // Start the first question
-  quizView.update('next', context);
+  context.action = 'next';
+  quizView.update(context);
 
   return { root: quizView.root };
 }

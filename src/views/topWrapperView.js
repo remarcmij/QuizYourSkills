@@ -1,7 +1,7 @@
 function createTopWrapperView() {
   let secs = 0;
 
-  const root = document.createElement('div')
+  const root = document.createElement('div');
   root.setAttribute('class', 'quiz-top-wrapper');
   root.innerHTML = String.raw`
     <p class="counter"></p>
@@ -15,7 +15,7 @@ function createTopWrapperView() {
   const corrects = root.querySelector('.corrects');
   const time = root.querySelector('.time');
 
-  const update = (action, context) => {
+  const update = (context) => {
     counter.textContent = `${context.questionIndex + 1}/${
       context.questions.length
     }`;

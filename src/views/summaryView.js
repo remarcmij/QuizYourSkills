@@ -10,7 +10,7 @@ function createSummaryView(props) {
     </div>
     <div class="btns-wrapper">
       <button type="submit" class="btn btn-restart scale-hover"">
-        &lt;Next&gt;
+        &lt;Restart Quiz&gt;
       </button>
     </div>
   `;

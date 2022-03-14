@@ -13,8 +13,8 @@ function createHomeView(props) {
     </div>
   `;
 
-  const startButton = root.querySelector('.btn-start');
-  startButton.addEventListener('click', props.onStart);
+  const btnStart = root.querySelector('.btn-start');
+  btnStart.addEventListener('click', props.onStart);
   return { root };
 }
 

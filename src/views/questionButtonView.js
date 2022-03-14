@@ -10,22 +10,22 @@ function createQuestionButtonView(props) {
     </button>
   `;
 
-  const nextButton = root.querySelector('.btn-next');
-  nextButton.addEventListener('click', props.onNext);
+  const btnNext = root.querySelector('.btn-next');
+  btnNext.addEventListener('click', props.onNext);
 
-  const giveUpButton = root.querySelector('.btn-giveup');
-  giveUpButton.addEventListener('click', props.onGiveUp);
+  const btnGiveUp = root.querySelector('.btn-giveup');
+  btnGiveUp.addEventListener('click', props.onGiveUp);
 
   const update = (context) => {
     switch (context.action) {
       case 'next':
-        giveUpButton.classList.remove('hidden');
-        nextButton.classList.add('hidden');
+        btnGiveUp.classList.remove('hidden');
+        btnNext.classList.add('hidden');
         break;
       case 'update':
       case 'giveup':
-        giveUpButton.classList.add('hidden');
-        nextButton.classList.remove('hidden');
+        btnGiveUp.classList.add('hidden');
+        btnNext.classList.remove('hidden');
         break;
     }
   };

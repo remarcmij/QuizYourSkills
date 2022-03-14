@@ -16,8 +16,8 @@ function createSummaryView(props) {
   `;
 
   const container = root.querySelector('.summary');
-  const restartButton = root.querySelector('.btn-restart');
-  restartButton.addEventListener('click', props.onRestart);
+  const btnRestart = root.querySelector('.btn-restart');
+  btnRestart.addEventListener('click', props.onRestart);
 
   props.questions.forEach((question) => {
     const correctAnswer = question.answers[question.correct];
